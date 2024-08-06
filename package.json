@@ -1,0 +1,12 @@
+{
+  "name": "@hexlet/code",
+  "version": "0.0.1",
+  "description": "Educational project - difference calculator on node.js",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "npx jest"
+  },
+  "author": "Roman Markin",
+  "license": "ISC"
+}
