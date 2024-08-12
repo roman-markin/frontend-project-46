@@ -4,9 +4,24 @@
   "description": "Educational project - difference calculator on node.js",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
   "scripts": {
     "test": "npx jest"
   },
   "author": "Roman Markin",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "globals": "^15.9.0",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "lodash": "^4.17.21"
+  }
 }
