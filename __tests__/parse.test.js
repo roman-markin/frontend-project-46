@@ -8,11 +8,11 @@ const expected = {
 };
 
 test('parse json file', () => {
-  const actual = parse('./__fixtures__/json_file.json');
+  const actual = parse('./__fixtures__/file1.json');
   expect(actual).toEqual(expected);
 });
 
 test('parse yml file', () => {
-  const actual = parse('./__fixtures__/yml_file.yml');
+  const actual = parse('./__fixtures__/file3.yml');
   expect(actual).toEqual(expected);
 });
