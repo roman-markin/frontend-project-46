@@ -15,7 +15,6 @@ const makeDiff = (obj1, obj2) => {
   }, {});
 };
 
-// stringify
 const gendiff = (obj1, obj2) => {
   const diff = makeDiff(obj1, obj2);
   const indentSize = 1;

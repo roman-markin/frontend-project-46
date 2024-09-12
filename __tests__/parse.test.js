@@ -1,4 +1,10 @@
+import { fileURLToPath } from 'url';
+import path from 'path';
 import parse from '../src/parse.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 const expected = {
   host: 'hexlet.io',
@@ -8,11 +14,11 @@ const expected = {
 };
 
 test('parse json file', () => {
-  const actual = parse('./__fixtures__/file1.json');
+  const actual = parse(getFixturePath('file1.json'));
   expect(actual).toEqual(expected);
 });
 
 test('parse yml file', () => {
-  const actual = parse('./__fixtures__/file3.yml');
+  const actual = parse(getFixturePath('file3.yml'));
   expect(actual).toEqual(expected);
 });
