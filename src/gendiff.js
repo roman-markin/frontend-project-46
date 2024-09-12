@@ -17,9 +17,7 @@ const makeDiff = (obj1, obj2) => {
 
 const gendiff = (obj1, obj2) => {
   const diff = makeDiff(obj1, obj2);
-  const indentSize = 1;
-  const replacer = ' ';
-  const currentIndent = replacer.repeat(indentSize);
+  const indent = ' ';
   const sign = {
     deleted: '-',
     added: '+',
@@ -27,19 +25,19 @@ const gendiff = (obj1, obj2) => {
   const lines = Object.keys(diff).reduce((acc, key) => {
     switch (diff[key]) {
       case 'deleted':
-        acc.push(`${currentIndent} ${sign.deleted} ${key}: ${obj1[key]}`);
+        acc.push(`${indent} ${sign.deleted} ${key}: ${obj1[key]}`);
         break;
       case 'added':
-        acc.push(`${currentIndent} ${sign.added} ${key}: ${obj2[key]}`);
+        acc.push(`${indent} ${sign.added} ${key}: ${obj2[key]}`);
         break;
       case 'changed': {
-        const deleted = `${currentIndent} ${sign.deleted} ${key}: ${obj1[key]}`;
-        const added = `${currentIndent} ${sign.added} ${key}: ${obj2[key]}`;
+        const deleted = `${indent} ${sign.deleted} ${key}: ${obj1[key]}`;
+        const added = `${indent} ${sign.added} ${key}: ${obj2[key]}`;
         acc.push(deleted, added);
         break;
       }
       default:
-        acc.push(`${currentIndent.repeat(3)} ${key}: ${obj1[key]}`);
+        acc.push(`${indent.repeat(3)} ${key}: ${obj1[key]}`);
     }
     return acc;
   }, []);
