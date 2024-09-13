@@ -15,33 +15,34 @@ const makeDiff = (obj1, obj2) => {
   }, {});
 };
 
-const gendiff = (obj1, obj2) => {
+const stringify = (key, value, sign, spacesCount = 1) => {
+  const indent = ' '.repeat(spacesCount);
+  return `${indent} ${sign} ${key}: ${value}`;
+};
+
+const genDiff = (obj1, obj2) => {
   const diff = makeDiff(obj1, obj2);
-  const indent = ' ';
-  const sign = {
-    deleted: '-',
-    added: '+',
-  };
+  const sign = ['-', '+', ''];
   const lines = Object.keys(diff).reduce((acc, key) => {
     switch (diff[key]) {
       case 'deleted':
-        acc.push(`${indent} ${sign.deleted} ${key}: ${obj1[key]}`);
+        acc.push(stringify(key, obj1[key], sign[0]));
         break;
       case 'added':
-        acc.push(`${indent} ${sign.added} ${key}: ${obj2[key]}`);
+        acc.push(stringify(key, obj2[key], sign[1]));
         break;
       case 'changed': {
-        const deleted = `${indent} ${sign.deleted} ${key}: ${obj1[key]}`;
-        const added = `${indent} ${sign.added} ${key}: ${obj2[key]}`;
+        const deleted = stringify(key, obj1[key], sign[0]);
+        const added = stringify(key, obj2[key], sign[1]);
         acc.push(deleted, added);
         break;
       }
       default:
-        acc.push(`${indent.repeat(3)} ${key}: ${obj1[key]}`);
+        acc.push(stringify(key, obj1[key], sign[2], 2));
     }
     return acc;
   }, []);
   return ['{', ...lines, '}'].join('\n');
 };
 
-export default gendiff;
+export default genDiff;

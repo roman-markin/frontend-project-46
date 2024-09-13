@@ -1,4 +1,4 @@
-import gendiff from '../src/gendiff.js';
+import genDiff from '../src/gendiff.js';
 
 describe('comparing flat object', () => {
   const obj1 = {
@@ -14,7 +14,7 @@ describe('comparing flat object', () => {
   };
 
   test('diff obj1 to obj2', () => {
-    const actual = gendiff(obj1, obj2);
+    const actual = genDiff(obj1, obj2);
     const expected = `{
   - follow: false
     host: hexlet.io
@@ -27,7 +27,7 @@ describe('comparing flat object', () => {
   });
 
   test('diff obj2 to obj1', () => {
-    const actual = gendiff(obj2, obj1);
+    const actual = genDiff(obj2, obj1);
     const expected = `{
   + follow: false
     host: hexlet.io
@@ -35,6 +35,15 @@ describe('comparing flat object', () => {
   - timeout: 20
   + timeout: 50
   - verbose: true
+}`;
+    expect(actual).toEqual(expected);
+  });
+  test('not have diff', () => {
+    const actual = genDiff(obj2, obj2);
+    const expected = `{
+    host: hexlet.io
+    timeout: 20
+    verbose: true
 }`;
     expect(actual).toEqual(expected);
   });

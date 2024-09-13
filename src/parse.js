@@ -1,17 +1,35 @@
 import fs from 'node:fs';
+import path from 'path';
 import YAML from 'yaml';
-import _ from 'lodash';
 
-const parseJson = (data) => JSON.parse(data);
-const parseYml = (data) => YAML.parse(data);
+const readFile = (filepath) => fs.readFileSync(filepath, 'utf8');
 
-export default (path) => {
-  const data = fs.readFileSync(path, 'utf8');
-  if (_.endsWith(path, '.json')) {
-    return parseJson(data);
+export const parseJson = (file) => {
+  try {
+    return JSON.parse(file);
+  } catch (e) {
+    throw new Error('Invalid JSON');
   }
-  if (_.endsWith(path, '.yml')) {
-    return parseYml(data);
-  }
-  return 'the file format is not supported';
 };
+
+export const parseYml = (file) => {
+  try {
+    return YAML.parse(file);
+  } catch (e) {
+    throw new Error('Invalid YML');
+  }
+};
+
+export const parse = (filepath) => {
+  const extention = path.extname(filepath).toLowerCase();
+  switch (extention) {
+    case '.json':
+      return parseJson(readFile(filepath));
+    case '.yml':
+      return parseYml(readFile(filepath));
+    default:
+      throw new Error('Unsupported file extension');
+  }
+};
+
+export default parse;
