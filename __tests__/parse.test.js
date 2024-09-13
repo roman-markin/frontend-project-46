@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { parse, parseJson, parseYml } from '../src/parse.js';
+import { parse, parseJson, parseYml } from '../src/parsers.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +21,11 @@ describe('positive parsing files', () => {
 
   test('parse yml file', () => {
     const actual = parse(getFixturePath('file3.yml'));
+    expect(actual).toEqual(expected);
+  });
+
+  test('parse yaml file', () => {
+    const actual = parse(getFixturePath('file5.yaml'));
     expect(actual).toEqual(expected);
   });
 });
@@ -46,6 +51,6 @@ describe('negative parsing', () => {
       const incorrectYml = '{ "host" hexlet.io }';
       console.log(parseYml(incorrectYml));
     }
-    expect(parsInvalidJson).toThrow('Invalid YML');
+    expect(parsInvalidJson).toThrow('Invalid YAML');
   });
 });
